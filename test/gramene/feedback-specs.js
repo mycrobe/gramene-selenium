@@ -29,7 +29,10 @@ var desired = JSON.parse(process.env.DESIRED || '{browserName: "chrome"}');
 desired.name = 'example with ' + desired.browserName;
 desired.tags = ['tutorial'];
 
-describe('tutorial (' + desired.browserName + ')', function () {
+// this script derived from manual script here:
+// https://docs.google.com/spreadsheets/d/1U8Cr8MjS-9dbS8guuesjZZr_w3kvleIm5WGjAeqWgE4/edit#gid=0
+
+describe('feedback (' + desired.browserName + ')', function () {
   var browser;
   var allPassed = true;
 
