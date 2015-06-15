@@ -105,14 +105,6 @@ describe('tutorial (' + desired.browserName + ')', function () {
       .nodeify(done);
   });
 
-  //it("should return to the home page(" + i + ")", function (done) {
-  //  browser
-  //    .elementByCss('#nav ul li a')
-  //    .click()
-  //    .waitForElementById("intro", wd.asserters.textInclude('JavaScript runtime'), 10000)
-  //    .title()
-  //    .should.not.eventually.include("Manual")
-  //    .nodeify(done);
-  //});
+  // TODO figure out how to defeat captcha and then test form filling and email receipt
 
 });
