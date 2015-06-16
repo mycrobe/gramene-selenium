@@ -66,8 +66,8 @@ describe('Search and ensembl links (' + desired.browserName + ')', function () {
       .nodeify(done);
   });
 
-  it("should successfully perform search", function (done) {
-    var testUpUntilClickResultLink = browser
+  it("should successfully perform text search, refine by species and go to Ensembl", function (done) {
+    browser
       // Go to gramene
       .get("http://www.gramene.org/")
 
@@ -100,18 +100,34 @@ describe('Search and ensembl links (' + desired.browserName + ')', function () {
       .should.eventually.include('TEOSINTE BRANCHED 1')
 
       // modify the link so that it will open in the current window,
-      // then click it to go to the Ensembl page
+      // then click it to go to the refernced Ensembl page
       .eval("document.querySelector('#docs > p:first-child a').setAttribute('target','_self')")
       .elementByCss("#docs > p:first-child a")
       .click()
 
       // load ensembl results page
-      .waitForElementByCss("body", wd.asserters.isDisplayed, 20000)
+      .waitForElementByCss("#GeneSummary", wd.asserters.isDisplayed, 30000) // Ensembl is super slow.
       .title()
       .should.eventually.include("Ensembl Genomes: Zea mays - Summary - Gene: AC233950.1_FG002")
-      //.elementByCss("#ensembl_panel_1 h1")
-      //.text()
-      //.should.eventually.include("Gene: AC233950.1_FG002")
+      .elementByCss("#ensembl_panel_1 h1")
+      .text()
+      .should.eventually.include("Gene: AC233950.1_FG002")
+
+      .nodeify(done);
+  });
+
+  it('should get useful content for each link on the left of the ensembl page', function(done) {
+    browser
+      // load ensembl results page
+      .get("http://ensembl.gramene.org/Zea_mays/Gene/Summary?db=core;g=AC233950.1_FG002;r=1:265811311-265813044;t=AC233950.1_FGT002")
+      .waitForElementByCss("#page_nav", wd.asserters.isDisplayed, 10000) // Ensembl is super slow.
+      .title()
+      .should.eventually.include("Ensembl Genomes: Zea mays - Summary - Gene: AC233950.1_FG002")
+
+      .elementsByCss("#page_nav ul.local_context a")
+      .should.eventually.have.length(19)
+
+      // TODO ITERATE
 
       .nodeify(done);
   });
