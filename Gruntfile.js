@@ -14,7 +14,7 @@ var gruntConfig = {
                     timeout: 60000,
                     reporter: 'spec'
                 },
-                src: ['test/sauce/**/*-specs.js']
+                src: ['test/gramene/**/*-specs.js']
             }
         },    
         jshint: {
