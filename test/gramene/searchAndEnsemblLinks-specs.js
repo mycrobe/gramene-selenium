@@ -30,7 +30,7 @@ desired.name = 'example with ' + desired.browserName;
 desired.tags = ['tutorial'];
 
 // this script derived from manual script here:
-// https://docs.google.com/spreadsheets/d/1U8Cr8MjS-9dbS8guuesjZZr_w3kvleIm5WGjAeqWgE4/edit#gid=0
+// https://docs.google.com/spreadsheets/d/1-AZGutpOmL97HHanTFQtHM9ZuWiiF1DrvMOpgyma1nM/edit#gid=0
 
 describe('Search and ensembl links (' + desired.browserName + ')', function () {
   var browser;
