@@ -67,7 +67,7 @@ describe('Search and ensembl links (' + desired.browserName + ')', function () {
   });
 
   it("should successfully perform search", function (done) {
-    browser
+    var testUpUntilClickResultLink = browser
       // Go to gramene
       .get("http://www.gramene.org/")
 
@@ -97,7 +97,21 @@ describe('Search and ensembl links (' + desired.browserName + ')', function () {
       // ensure result has text 'TB1_MAIZE'
       .elementByCss("#docs > p:first-child")
       .text()
-      .should.eventually.include('TB1_MAIZE')
+      .should.eventually.include('TEOSINTE BRANCHED 1')
+
+      // modify the link so that it will open in the current window,
+      // then click it to go to the Ensembl page
+      .eval("document.querySelector('#docs > p:first-child a').setAttribute('target','_self')")
+      .elementByCss("#docs > p:first-child a")
+      .click()
+
+      // load ensembl results page
+      .waitForElementByCss("body", wd.asserters.isDisplayed, 20000)
+      .title()
+      .should.eventually.include("Ensembl Genomes: Zea mays - Summary - Gene: AC233950.1_FG002")
+      //.elementByCss("#ensembl_panel_1 h1")
+      //.text()
+      //.should.eventually.include("Gene: AC233950.1_FG002")
 
       .nodeify(done);
   });
